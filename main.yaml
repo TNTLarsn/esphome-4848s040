@@ -17,8 +17,20 @@ logger:
 api:
 
 # OTA is required for Over-the-Air updating
+# - esphome platform: For OTA via ESPHome Dashboard
+# - http_request platform: For managed firmware updates via manifest.json
 ota:
   - platform: esphome
+  - platform: http_request
+
+# Used to pull OTA updates via HTTP
+http_request:
+
+# Check for firmware updates
+update:
+  - platform: http_request
+    name: Firmware
+    source: https://github.com/tntlarsn/esphome-4848s040/releases/latest/download/display.manifest.json
 
 wifi:
   # Set up a wifi access point using the device name above
