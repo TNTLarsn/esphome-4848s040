@@ -83,3 +83,9 @@ text_sensor:
       name: Latest Scan Results
     dns_address:
       name: DNS Address
+
+  # Reports the project firmware version to Home Assistant
+  # This is required for the update component to detect new firmware versions
+  - platform: version
+    name: Firmware Version
+    hide_timestamp: true
