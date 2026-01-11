@@ -56,3 +56,42 @@ button:
   - platform: factory_reset
     id: "factory_reset_button"
     internal: True
+
+sensor:
+  - platform: uptime
+    id: uptime_internal
+    entity_category: "diagnostic"
+    device_class: "duration"
+    unit_of_measurement: "s"
+
+  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
+    name: "WiFi Signal dBm"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+    unit_of_measurement: "dBm"
+    device_class: "signal_strength"
+
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: wifi_signal_db
+    name: "WiFi Percentage"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: "diagnostic"
+    device_class: "signal_strength"
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: IP Address
+    ssid:
+      name: SSID
+    bssid:
+      name: BSSID
+    mac_address:
+      name: Mac Wifi Address
+    scan_results:
+      name: Latest Scan Results
+    dns_address:
+      name: DNS Address
