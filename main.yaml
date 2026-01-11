@@ -4,6 +4,9 @@ esphome:
   # Automatically add the mac address to the name
   # so you can use a single firmware for all devices
   name_add_mac_suffix: true
+  project:
+    name: tntlarsn.esphome-4848s040
+    version: dev # replaced by release workflow with the tagged version
 
 esp32:
   board: esp32-s3-devkitc-1

@@ -22,7 +22,7 @@ jobs:
       matrix:
         #### Modify below here to match your project ####
         file:
-          - main
+          - esphome-4848s040
         #### Modify above here to match your project ####
 
         esphome-version:

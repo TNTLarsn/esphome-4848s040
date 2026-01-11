@@ -1,0 +1,54 @@
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  # Automatically add the mac address to the name
+  # so you can use a single firmware for all devices
+  name_add_mac_suffix: true
+  project:
+    name: ${project_name}
+    version: ${project_version} # replaced by release workflow with the tagged version
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+# To be able to get logs from the device via serial and api.
+logger:
+  level: ${log_level}
+
+# API is a requirement of the dashboard import.
+api:
+
+# OTA is required for Over-the-Air updating
+# - esphome platform: For OTA via ESPHome Dashboard
+# - http_request platform: For managed firmware updates via manifest.json
+
+ota:
+  - platform: esphome
+    id: ota_esphome
+  - platform: http_request
+    id: ota_http_request
+
+http_request:
+
+wifi:
+  fast_connect: ${hidden_ssid}
+  # Set up a wifi access point using the device name above
+  ap:
+   
+improv_serial:
+  
+button:
+  - platform: restart
+    id: restart_internal
+    entity_category: config
+    internal: true
+  - platform: safe_mode
+    internal: false
+    name: Safe mode
+    entity_category: config
+    disabled_by_default: True
+  - platform: factory_reset
+    id: "factory_reset_button"
+    internal: True

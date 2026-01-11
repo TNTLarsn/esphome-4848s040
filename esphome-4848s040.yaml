@@ -1,0 +1,23 @@
+substitutions:
+  name: "esphome-4848s040"
+  friendly_name: "ESPhome 4848S040 Display"
+  project_name: "TNT_Larsn.ESPhome Display"
+  project_version: "2026.1.6"
+  temperature_offset: "-3"
+  hidden_ssid: "false"
+  factory_reset_disabled: "true"
+  log_level: "DEBUG"
+
+update:
+  - platform: http_request
+    id: update_http_request
+    name: ESPhome 4848S040 Display Firmware
+    source: https://tntlarsn.github.io/esphome-4848s040/firmware/esphome-4848s040.manifest.json
+    disabled_by_default: true
+
+dashboard_import:
+  package_import_url: github://tntlarsn/esphome-4848s040/esphome-4848s040.yaml@main
+  import_full_config: false
+
+packages:
+  device_base: !include common/esphome-4848s040-base.yaml
