@@ -2,7 +2,7 @@ substitutions:
   name: "esphome-4848s040"
   friendly_name: "ESPhome 4848S040 Display"
   project_name: "TNT_Larsn.ESPhome Display"
-  project_version: "2026.1.6"
+  project_version: "2026.1.1"
   temperature_offset: "-3"
   hidden_ssid: "false"
   factory_reset_disabled: "true"
