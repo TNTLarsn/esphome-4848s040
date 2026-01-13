@@ -18,7 +18,7 @@ This project provides ESPHome firmware for the 4848S040 display board, featuring
 4. Configure Wi-Fi using the captive portal or Bluetooth LE provisioning
 5. Add the device to your Home Assistant instance
 
-# Installation
+## Installation
 
 You can use the button below to install the pre-built firmware directly to your device via USB from the browser.
 
