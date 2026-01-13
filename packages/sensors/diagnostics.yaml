@@ -1,0 +1,24 @@
+sensor:
+  - platform: uptime
+    name: "Uptime"
+    id: uptime_sensor
+    entity_category: "diagnostic"
+    device_class: "duration"
+    unit_of_measurement: "s"
+
+  - platform: wifi_signal
+    name: "WiFi Signal dBm"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+    unit_of_measurement: "dBm"
+    device_class: "signal_strength"
+
+  - platform: copy
+    source_id: wifi_signal_db
+    name: "WiFi Percentage"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "%"
+    entity_category: "diagnostic"
+    device_class: ""

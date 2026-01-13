@@ -3,33 +3,78 @@
 ## Übersicht
 Dieses Repository stellt ESPHome-Firmware für das 4848S040-Displayboard mit ESP32-S3 und ESP-IDF bereit. Die GitHub-Workflows bauen die YAML-Konfigurationen und veröffentlichen Firmware sowie eine Installationsseite über GitHub Pages.
 
+## Projektstruktur
+```
+esphome-4848s040/
+├── esphome-4848s040.yaml          # Hauptkonfiguration (importiert Module)
+├── esphome-4848s040.factory.yaml  # Factory-Konfiguration
+├── packages/
+│   ├── core/                      # Grundlegende Konfigurationen
+│   │   ├── base.yaml              # ESPHome-Basis, Board, Logger
+│   │   ├── wifi.yaml              # WiFi & Captive Portal
+│   │   ├── api.yaml               # API, OTA, HTTP-Request
+│   │   └── updates.yaml           # Firmware-Updates
+│   ├── sensors/                   # Sensor-Definitionen
+│   │   ├── diagnostics.yaml       # Uptime, WiFi-Signal
+│   │   └── system_info.yaml       # Firmware-Version, Netzwerk-Info
+│   ├── buttons/                   # Button-Definitionen
+│   │   └── system.yaml            # Restart, Update-Check
+│   └── integrations/              # Projektspezifische Integrationen
+│       └── .gitkeep               # (zukünftige Erweiterungen)
+├── static/                        # GitHub Pages Website
+└── .github/                       # CI/CD Workflows
+```
+
 ## Zentrale Komponenten
-- **Hauptkonfiguration**: [esphome-4848s040.yaml](esphome-4848s040.yaml) – Board-Settings, WiFi/AP, Logger, API, OTA (esphome und http_request), Update-Entity, diagnostische Sensoren
-- **Factory-Konfiguration**: [esphome-4848s040.factory.yaml](esphome-4848s040.factory.yaml) – importiert die Hauptkonfig, ergänzt Projekt-Metadaten, Dashboard-Import, Provisioning (USB/BLE)
-- **Static Website**: [static/_config.yml](static/_config.yml), [static/index.md](static/index.md) – GitHub Pages mit ESP Web Tools Installer
+- **Hauptkonfiguration**: [esphome-4848s040.yaml](esphome-4848s040.yaml) – Importiert alle Module
+- **Factory-Konfiguration**: [esphome-4848s040.factory.yaml](esphome-4848s040.factory.yaml) – Provisioning/Dashboard-Import
+- **Core-Module**: [packages/core/](packages/core/) – Basis, WiFi, API, Updates
+- **Sensoren**: [packages/sensors/](packages/sensors/) – Diagnostik, System-Info
+- **Buttons**: [packages/buttons/](packages/buttons/) – System-Steuerung
+- **Integrationen**: [packages/integrations/](packages/integrations/) – Erweiterungen
 
 ## Build & Tests
-- **CI**: [.github/workflows/ci.yml](.github/workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev` bei PRs, täglich und manuell
-- **Firmware Release**: [.github/workflows/publish-firmware.yml](.github/workflows/publish-firmware.yml) – Nutzt ESPHome Workflows `2025.12.5`, generiert manifest.json und Firmware-Binaries
-- **GitHub Pages**: [.github/workflows/publish-pages.yml](.github/workflows/publish-pages.yml) – Veröffentlicht Website aus `static/` mit Release-Artefakten
+- **CI**: [.github/workflows/ci.yml](.github/workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
+- **Firmware Release**: [.github/workflows/publish-firmware.yml](.github/workflows/publish-firmware.yml) – Generiert manifest.json und Firmware
+- **GitHub Pages**: [.github/workflows/publish-pages.yml](.github/workflows/publish-pages.yml) – Veröffentlicht Website
 
 ## Projektkonventionen
-- YAML-Einrückung: 2 Leerzeichen.
-- Namenssuffix: `name_add_mac_suffix: true` für eindeutige Gerätenamen.
-- Board: `esp32-s3-devkitc-1`, Framework: `esp-idf`.
-- Pflichtkomponenten: `logger`, `api`, `ota` (esphome und http_request), `wifi` mit AP-Fallback, `captive_portal`, `http_request` für Updates.
-- Sensoren & Diagnostik: `uptime`, `wifi_signal`, `wifi_info` in der Hauptkonfig.
-- Update-Entity: `http_request` Platform mit Source auf neuestes Release-Manifest.
+- YAML-Einrückung: 2 Leerzeichen
+- Namenssuffix: `name_add_mac_suffix: true` für eindeutige Gerätenamen
+- Board: `esp32-s3-devkitc-1`, Framework: `esp-idf`
+- Modularer Aufbau: Ein Modul pro Funktion/Feature
+- Substitutions nur in `packages/core/base.yaml` definieren
 
 ## Typische Aufgaben
-- **Sensoren/Features hinzufügen**: In [esphome-4848s040.yaml](esphome-4848s040.yaml) unter `sensor:` oder `text_sensor:` erweitern.
-- **Projekt-Metadaten aktualisieren**: In [esphome-4848s040.factory.yaml](esphome-4848s040.factory.yaml) unter `esphome.project` Name/Version anpassen.
-- **Website ändern**: Texte in [static/index.md](static/index.md) oder Jekyll-Settings in [static/_config.yml](static/_config.yml) bearbeiten.
-- **Release erstellen**: Tag in GitHub setzen → Workflows bauen Firmware, generieren manifest.json, deployen Website.
+
+### Neuen Sensor hinzufügen
+1. Passende Datei in `packages/sensors/` wählen oder neue erstellen
+2. Sensor-Definition hinzufügen
+3. Falls neue Datei: In [esphome-4848s040.yaml](esphome-4848s040.yaml) unter `packages:` einbinden
+
+### Neue Integration hinzufügen
+1. Neue YAML-Datei in `packages/integrations/` erstellen
+2. In [esphome-4848s040.yaml](esphome-4848s040.yaml) unter `packages:` einbinden
+3. CI testen
+
+### Beispiel für neue Integration
+```yaml
+# packages/integrations/display.yaml
+display:
+  - platform: ...
+    # Display-Konfiguration
+```
+
+Dann in `esphome-4848s040.yaml`:
+```yaml
+packages:
+  # ...existing packages...
+  display: !include packages/integrations/display.yaml
+```
 
 ## Best Practices
-1. **Änderungen validieren**: Lokal oder über CI gegen alle ESPHome-Kanäle testen.
-2. **Architektur respektieren**: Core-Logik in Hauptkonfig, Factory nur für Provisioning/Dashboard-Import.
-3. **YAML-Formatierung**: Konsistent bei 2 Leerzeichen; Secrets in `secrets.yaml` (nicht getrackt).
-4. **Releases vorbereiten**: Vor Release sicherstellen, dass Installer auf neuestes Manifest-Artefakt zeigt.
-5. **CI nutzen**: `workflow_dispatch` erlaubt manuelle Builds – nützlich für ad-hoc Tests.
+1. **Modulare Trennung**: Jedes Feature in eigener Datei
+2. **Konsistente Benennung**: Dateinamen beschreiben Inhalt
+3. **Substitutions zentral**: Nur in `base.yaml` definieren
+4. **CI nutzen**: Vor Merge alle ESPHome-Versionen testen
+5. **Dokumentation**: Bei neuen Integrationen README aktualisieren

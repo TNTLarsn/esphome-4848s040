@@ -1,0 +1,20 @@
+substitutions:
+  name: "esphome-4848s040"
+  friendly_name: "ESPhome 4848S040 Display"
+  project_name: "TNT_Larsn.ESPhome Display"
+  version: "2026.1.5"
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: true
+  project:
+    name: ${project_name}
+    version: ${version}
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+
+logger:

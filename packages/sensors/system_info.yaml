@@ -1,0 +1,21 @@
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: IP Address
+    ssid:
+      name: SSID
+    bssid:
+      name: BSSID
+    mac_address:
+      name: Mac Wifi Address
+    scan_results:
+      name: Latest Scan Results
+    dns_address:
+      name: DNS Address
+
+  - platform: template
+    name: "Firmware Version"
+    id: firmware_version
+    lambda: return std::string("${version}");
+    icon: "mdi:information"
+    entity_category: "diagnostic"

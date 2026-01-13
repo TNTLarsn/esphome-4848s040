@@ -22,18 +22,3 @@ improv_serial:
 # to provision wifi credentials to the device.
 esp32_improv:
   authorizer: none
-
-# Used to pull OTA updates
-http_request:
-  
-ota:
-  - platform: http_request
-    id: firmware_ota
-
-# - http_request platform: For managed firmware updates via manifest.json
-update:
-  - platform: http_request
-    id: update_http_request
-    name: Firmware
-    source: https://github.com/tntlarsn/esphome-4848s040/releases/latest/download/esphome-4848s040.manifest.json
-    disabled_by_default: false   
