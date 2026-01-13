@@ -17,7 +17,6 @@ esp32:
 
 # To be able to get logs from the device via serial and api.
 logger:
-  level: ${log_level}
 
 # API is a requirement of the dashboard import.
 api:
