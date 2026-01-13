@@ -51,7 +51,6 @@ button:
   - platform: restart
     id: restart_internal
     entity_category: config
-    internal: true
 
 sensor:
   - platform: uptime
