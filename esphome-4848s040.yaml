@@ -49,9 +49,9 @@ captive_portal:
   
 button:
   - platform: restart
-    id: restart_internal
+    id: restart_button
+    name: "Restart"
     entity_category: config
-    internal: true
 
 sensor:
   - platform: uptime
