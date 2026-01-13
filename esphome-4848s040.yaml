@@ -49,7 +49,7 @@ captive_portal:
   
 button:
   - platform: restart
-    id: restart_internal
+    id: restart_button
     entity_category: config
 
 sensor:
