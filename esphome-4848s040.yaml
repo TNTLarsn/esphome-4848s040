@@ -2,22 +2,34 @@ substitutions:
   name: "esphome-4848s040"
   friendly_name: "ESPhome 4848S040 Display"
   project_name: "TNT_Larsn.ESPhome Display"
-  project_version: "2026.1.1"
-  temperature_offset: "-3"
-  hidden_ssid: "false"
-  factory_reset_disabled: "true"
-  log_level: "DEBUG"
 
-update:
-  - platform: http_request
-    id: update_http_request
-    name: ESPhome 4848S040 Display Firmware
-    source: https://tntlarsn.github.io/esphome-4848s040/firmware/esphome-4848s040.manifest.json
-    disabled_by_default: true
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  # Automatically add the mac address to the name
+  # so you can use a single firmware for all devices
+  name_add_mac_suffix: true
 
-dashboard_import:
-  package_import_url: github://tntlarsn/esphome-4848s040/esphome-4848s040.yaml@main
-  import_full_config: false
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
 
-packages:
-  device_base: !include common/esphome-4848s040-base.yaml
+# To be able to get logs from the device via serial and api.
+logger:
+  level: ${log_level}
+
+# API is a requirement of the dashboard import.
+api:
+
+# OTA is required for Over-the-Air updating
+ota:
+  - platform: esphome
+
+wifi:
+  # Set up a wifi access point using the device name above
+  ap:
+
+# In combination with the `ap` this allows the user
+# to provision wifi credentials to the device.
+captive_portal:
