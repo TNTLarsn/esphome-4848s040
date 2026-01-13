@@ -1,0 +1,15 @@
+api:
+
+http_request:
+  useragent: esphome-4848s040
+  follow_redirects: true
+  redirect_limit: 5
+  timeout: 30s
+  buffer_size_rx: 2048
+  buffer_size_tx: 1024
+
+ota:
+  - platform: esphome
+    id: esphome_ota
+  - platform: http_request
+    id: firmware_ota

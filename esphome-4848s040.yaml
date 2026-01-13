@@ -1,84 +1,20 @@
-substitutions:
-  name: "esphome-4848s040"
-  friendly_name: "ESPhome 4848S040 Display"
-  project_name: "TNT_Larsn.ESPhome Display"
-  version: "2026.1.5"
+# ESPHome 4848S040 Display - Hauptkonfiguration
+# Diese Datei importiert alle modularen Pakete
 
-esphome:
-  name: ${name}
-  friendly_name: ${friendly_name}
-  # Automatically add the mac address to the name
-  # so you can use a single firmware for all devices
-  name_add_mac_suffix: true
-  project:
-    name: ${project_name}
-    version: ${version}
+packages:
+  # Core-Komponenten
+  base: !include packages/core/base.yaml
+  wifi: !include packages/core/wifi.yaml
+  api: !include packages/core/api.yaml
+  updates: !include packages/core/updates.yaml
 
-esp32:
-  board: esp32-s3-devkitc-1
-  framework:
-    type: esp-idf
+  # Sensoren
+  diagnostics: !include packages/sensors/diagnostics.yaml
+  system_info: !include packages/sensors/system_info.yaml
 
-# To be able to get logs from the device via serial and api.
-logger:
+  # Buttons
+  system_buttons: !include packages/buttons/system.yaml
 
-# API is a requirement of the dashboard import.
-api:
-
-# OTA is required for Over-the-Air updating
-ota:
-  - platform: esphome
-    id: esphome_ota
-
-wifi:
-  # Set up a wifi access point using the device name above
-  ap:
-
-# In combination with the `ap` this allows the user
-# to provision wifi credentials to the device.
-captive_portal:
-  
-button:
-  - platform: restart
-    id: restart_button
-    name: "Restart"
-    entity_category: config
-
-sensor:
-  - platform: uptime
-    id: uptime_sensor
-    entity_category: "diagnostic"
-    device_class: "duration"
-    unit_of_measurement: "s"
-
-  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
-    name: "WiFi Signal dBm"
-    id: wifi_signal_db
-    update_interval: 60s
-    entity_category: "diagnostic"
-    unit_of_measurement: "dBm"
-    device_class: "signal_strength"
-
-  - platform: copy # Reports the WiFi signal strength in %
-    source_id: wifi_signal_db
-    name: "WiFi Percentage"
-    filters:
-      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
-    unit_of_measurement: "%"
-    entity_category: "diagnostic"
-    device_class: ""
-
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      name: IP Address
-    ssid:
-      name: SSID
-    bssid:
-      name: BSSID
-    mac_address:
-      name: Mac Wifi Address
-    scan_results:
-      name: Latest Scan Results
-    dns_address:
-      name: DNS Address
+  # Integrationen (hier weitere hinzufügen)
+  # display: !include packages/integrations/display.yaml
+  # custom_sensors: !include packages/integrations/custom_sensors.yaml

@@ -1,0 +1,7 @@
+update:
+  - platform: http_request
+    id: firmware_update
+    name: "Firmware"
+    source: https://github.com/tntlarsn/esphome-4848s040/releases/latest/download/esphome-4848s040.manifest.json
+    device_class: firmware
+    update_interval: 1h
