@@ -40,8 +40,8 @@ captive_portal:
   
 button:
   - platform: restart
+    id: restart_button
     name: "Restart"
-    id: restart
     entity_category: config
 
 sensor:
