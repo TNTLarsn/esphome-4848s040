@@ -1,0 +1,6 @@
+image: 
+  - file: 'images/ha_logo.png'
+    id: boot_logo
+    resize: 200x200
+    type: RGB565
+    transparency: alpha_channel

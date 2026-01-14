@@ -16,5 +16,14 @@ packages:
   system_buttons: !include packages/buttons/system.yaml
 
   # Integrationen (hier weitere hinzufügen)
-  # display: !include packages/integrations/display.yaml
-  # custom_sensors: !include packages/integrations/custom_sensors.yaml
+  display: !include packages/core/display.yaml
+  images: !include packages/core/images.yaml
+  touchscreen: !include packages/core/touchscreen.yaml
+
+  globals: !include packages/integrations/globals.yaml
+  outputs: !include packages/integrations/output.yaml
+  lights: !include packages/integrations/light.yaml
+  numbers: !include packages/integrations/number.yaml
+
+  lvgl: !include packages/lvgl/displays.yaml
+  scripts: !include packages/scripts/script.yaml
