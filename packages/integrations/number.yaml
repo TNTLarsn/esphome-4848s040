@@ -6,8 +6,8 @@ number:
     max_value: 255
     step: 1
     initial_value: 160
-    optimistic: True
-    internal: True
+    optimistic: true
+    internal: true
     on_value:
       then:
         - globals.set:
