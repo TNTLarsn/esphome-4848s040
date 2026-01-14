@@ -1,0 +1,4 @@
+globals:
+  - id: dimmer_level
+    type: int
+    restore_value: no

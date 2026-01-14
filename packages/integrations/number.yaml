@@ -1,0 +1,15 @@
+number:
+  - platform: template
+    id: dimmer_val
+    name: "dimmer val"
+    min_value: 0
+    max_value: 255
+    step: 1
+    initial_value: 160
+    optimistic: True
+    internal: True
+    on_value:
+      then:
+        - globals.set:
+            id: dimmer_level
+            value: !lambda 'return int(x);'
