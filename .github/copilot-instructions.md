@@ -32,17 +32,17 @@ esphome-4848s040/
 ```
 
 ## Zentrale Komponenten
-- **Hauptkonfiguration**: [esphome-4848s040.yaml](esphome-4848s040.yaml) – Importiert alle Module
-- **Factory-Konfiguration**: [esphome-4848s040.factory.yaml](esphome-4848s040.factory.yaml) – Provisioning/Dashboard-Import
-- **Core-Module**: [packages/core/](packages/core/) – Basis, WiFi, API, Updates
-- **Sensoren**: [packages/sensors/](packages/sensors/) – Diagnostik, System-Info
-- **Buttons**: [packages/buttons/](packages/buttons/) – System-Steuerung
-- **Integrationen**: [packages/integrations/](packages/integrations/) – Verzeichnis für projektspezifische Integrationen (aktuell leer)
+- **Hauptkonfiguration**: [esphome-4848s040.yaml](../esphome-4848s040.yaml) – Importiert alle Module
+- **Factory-Konfiguration**: [esphome-4848s040.factory.yaml](../esphome-4848s040.factory.yaml) – Provisioning/Dashboard-Import
+- **Core-Module**: [packages/core/](../packages/core/) – Basis, WiFi, API, Updates
+- **Sensoren**: [packages/sensors/](../packages/sensors/) – Diagnostik, System-Info
+- **Buttons**: [packages/buttons/](../packages/buttons/) – System-Steuerung
+- **Integrationen**: [packages/integrations/](../packages/integrations/) – Verzeichnis für projektspezifische Integrationen (aktuell leer)
 
 ## Build & Tests
-- **CI**: [.github/workflows/ci.yml](.github/workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
-- **Firmware Release**: [.github/workflows/publish-firmware.yml](.github/workflows/publish-firmware.yml) – Generiert manifest.json und Firmware
-- **GitHub Pages**: [.github/workflows/publish-pages.yml](.github/workflows/publish-pages.yml) – Veröffentlicht Website
+- **CI**: [.github/workflows/ci.yml](workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
+- **Firmware Release**: [.github/workflows/publish-firmware.yml](workflows/publish-firmware.yml) – Generiert manifest.json und Firmware
+- **GitHub Pages**: [.github/workflows/publish-pages.yml](workflows/publish-pages.yml) – Veröffentlicht Website
 
 ## Projektkonventionen
 - YAML-Einrückung: 2 Leerzeichen
@@ -50,18 +50,18 @@ esphome-4848s040/
 - Board: `esp32-s3-devkitc-1`, Framework: `esp-idf`
 - Modularer Aufbau: Ein Modul pro Funktion/Feature
 - Substitutions nur in `packages/core/base.yaml` definieren
-- Aktuelle Version: `2026.1.8` (siehe [packages/core/base.yaml](packages/core/base.yaml))
+- Aktuelle Version: `2026.1.9` (siehe [packages/core/base.yaml](../packages/core/base.yaml))
 
 ## Typische Aufgaben
 
 ### Neuen Sensor hinzufügen
 1. Passende Datei in `packages/sensors/` wählen oder neue erstellen
 2. Sensor-Definition hinzufügen
-3. Falls neue Datei: In [esphome-4848s040.yaml](esphome-4848s040.yaml) unter `packages:` einbinden
+3. Falls neue Datei: In [esphome-4848s040.yaml](../esphome-4848s040.yaml) unter `packages:` einbinden
 
 ### Neue Integration hinzufügen
 1. Neue YAML-Datei in `packages/integrations/` erstellen
-2. In [esphome-4848s040.yaml](esphome-4848s040.yaml) unter `packages:` einbinden
+2. In [esphome-4848s040.yaml](../esphome-4848s040.yaml) unter `packages:` einbinden
 3. CI testen
 
 ### Beispiel für neue Integration
