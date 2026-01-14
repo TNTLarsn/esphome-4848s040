@@ -19,10 +19,16 @@ esphome-4848s040/
 │   │   └── system_info.yaml       # Firmware-Version, Netzwerk-Info
 │   ├── buttons/                   # Button-Definitionen
 │   │   └── system.yaml            # Restart, Update-Check
-│   └── integrations/              # Projektspezifische Integrationen
-│       └── .gitkeep               # (zukünftige Erweiterungen)
+│   └── integrations/              # Projektspezifische Integrationen (leer, für zukünftige Nutzung)
 ├── static/                        # GitHub Pages Website
+│   ├── _config.yml                # Jekyll-Konfiguration
+│   └── index.md                   # Installationsseite
 └── .github/                       # CI/CD Workflows
+    ├── workflows/
+    │   ├── ci.yml                 # CI-Build für alle ESPHome-Versionen
+    │   ├── publish-firmware.yml   # Firmware-Release
+    │   └── publish-pages.yml      # GitHub Pages Deployment
+    └── dependabot.yml             # Dependency-Updates
 ```
 
 ## Zentrale Komponenten
@@ -31,7 +37,7 @@ esphome-4848s040/
 - **Core-Module**: [packages/core/](packages/core/) – Basis, WiFi, API, Updates
 - **Sensoren**: [packages/sensors/](packages/sensors/) – Diagnostik, System-Info
 - **Buttons**: [packages/buttons/](packages/buttons/) – System-Steuerung
-- **Integrationen**: [packages/integrations/](packages/integrations/) – Erweiterungen
+- **Integrationen**: [packages/integrations/](packages/integrations/) – Verzeichnis für projektspezifische Integrationen (aktuell leer)
 
 ## Build & Tests
 - **CI**: [.github/workflows/ci.yml](.github/workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
@@ -44,6 +50,7 @@ esphome-4848s040/
 - Board: `esp32-s3-devkitc-1`, Framework: `esp-idf`
 - Modularer Aufbau: Ein Modul pro Funktion/Feature
 - Substitutions nur in `packages/core/base.yaml` definieren
+- Aktuelle Version: `2026.1.8` (siehe [packages/core/base.yaml](packages/core/base.yaml))
 
 ## Typische Aufgaben
 
@@ -59,17 +66,18 @@ esphome-4848s040/
 
 ### Beispiel für neue Integration
 ```yaml
-# packages/integrations/display.yaml
-display:
-  - platform: ...
-    # Display-Konfiguration
+# packages/integrations/meine_integration.yaml
+sensor:
+  - platform: template
+    name: "Mein Sensor"
+    # Sensor-Konfiguration
 ```
 
 Dann in `esphome-4848s040.yaml`:
 ```yaml
 packages:
   # ...existing packages...
-  display: !include packages/integrations/display.yaml
+  meine_integration: !include packages/integrations/meine_integration.yaml
 ```
 
 ## Best Practices
@@ -78,3 +86,4 @@ packages:
 3. **Substitutions zentral**: Nur in `base.yaml` definieren
 4. **CI nutzen**: Vor Merge alle ESPHome-Versionen testen
 5. **Dokumentation**: Bei neuen Integrationen README aktualisieren
+6. **Versionierung**: Version in `base.yaml` bei Änderungen aktualisieren
