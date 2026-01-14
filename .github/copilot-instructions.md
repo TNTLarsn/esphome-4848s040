@@ -20,7 +20,6 @@ esphome-4848s040/
 │   ├── buttons/                   # Button-Definitionen
 │   │   └── system.yaml            # Restart, Update-Check
 │   └── integrations/              # Projektspezifische Integrationen (leer)
-├── images/                        # Bild-Assets
 ├── static/                        # GitHub Pages Website
 │   ├── _config.yml                # Jekyll-Konfiguration
 │   └── index.md                   # Installationsseite
