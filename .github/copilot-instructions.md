@@ -19,11 +19,7 @@ esphome-4848s040/
 │   │   └── system_info.yaml       # Firmware-Version, Netzwerk-Info
 │   ├── buttons/                   # Button-Definitionen
 │   │   └── system.yaml            # Restart, Update-Check
-│   └── integrations/              # Projektspezifische Integrationen
-│       ├── globals.yaml           # Globale Variablen
-│       ├── output.yaml            # Output-Konfigurationen
-│       ├── light.yaml             # Licht-Konfigurationen
-│       └── number.yaml            # Number-Entities
+│   └── integrations/              # Projektspezifische Integrationen (leer, für zukünftige Erweiterungen)
 ├── static/                        # GitHub Pages Website
 │   ├── _config.yml                # Jekyll-Konfiguration
 │   └── index.md                   # Installationsseite
@@ -41,7 +37,7 @@ esphome-4848s040/
 - **Core-Module**: [packages/core/](packages/core/) – Basis, WiFi, API, Updates
 - **Sensoren**: [packages/sensors/](packages/sensors/) – Diagnostik, System-Info
 - **Buttons**: [packages/buttons/](packages/buttons/) – System-Steuerung
-- **Integrationen**: [packages/integrations/](packages/integrations/) – Globals, Outputs, Lights, Numbers
+- **Integrationen**: [packages/integrations/](packages/integrations/) – Verzeichnis für zukünftige projektspezifische Integrationen
 
 ## Build & Tests
 - **CI**: [.github/workflows/ci.yml](.github/workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
