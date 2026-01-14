@@ -15,7 +15,6 @@ esphome-4848s040/
 │   │   ├── api.yaml               # API, OTA, HTTP-Request
 │   │   ├── updates.yaml           # Firmware-Updates
 │   │   ├── display.yaml           # Display-Konfiguration
-│   │   ├── images.yaml            # Bilder/Assets
 │   │   └── touchscreen.yaml       # Touchscreen-Konfiguration
 │   ├── sensors/                   # Sensor-Definitionen
 │   │   ├── diagnostics.yaml       # Uptime, WiFi-Signal
