@@ -6,8 +6,8 @@ esphome:
     - script.execute: screen_light
 
 lvgl:
-  displays: my_display
-  touchscreens: my_touchscreen
+  displays: [my_display]
+  touchscreens: [my_touchscreen]
 
   pages:
     - id: main_page
