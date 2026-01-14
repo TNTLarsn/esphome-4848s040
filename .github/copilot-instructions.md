@@ -11,27 +11,16 @@ esphome-4848s040/
 ├── packages/
 │   ├── core/                      # Grundlegende Konfigurationen
 │   │   ├── base.yaml              # ESPHome-Basis, Board, Logger
-│   │   ├── wifi.yaml              # WiFi & Captive Portal
+│   │   ├── wifi.yaml              # WiFi-Konfiguration
 │   │   ├── api.yaml               # API, OTA, HTTP-Request
-│   │   ├── updates.yaml           # Firmware-Updates
-│   │   ├── display.yaml           # Display-Konfiguration
-│   │   ├── images.yaml            # Bilder/Assets
-│   │   └── touchscreen.yaml       # Touchscreen-Konfiguration
+│   │   └── updates.yaml           # Firmware-Updates
 │   ├── sensors/                   # Sensor-Definitionen
 │   │   ├── diagnostics.yaml       # Uptime, WiFi-Signal
 │   │   └── system_info.yaml       # Firmware-Version, Netzwerk-Info
 │   ├── buttons/                   # Button-Definitionen
 │   │   └── system.yaml            # Restart, Update-Check
-│   ├── integrations/              # Projektspezifische Integrationen
-│   │   ├── globals.yaml           # Globale Variablen
-│   │   ├── output.yaml            # Output-Konfigurationen
-│   │   ├── light.yaml             # Licht-Konfigurationen
-│   │   └── number.yaml            # Number-Entities
-│   ├── lvgl/                      # LVGL Display-UI
-│   │   └── displays.yaml          # LVGL-Konfiguration
-│   └── scripts/                   # ESPHome Scripts
-│       └── script.yaml            # Skript-Definitionen
-├── images/                        # Bild-Assets
+│   └── integrations/              # Projektspezifische Integrationen (leer, bereit für Erweiterungen)
+│       └── .gitkeep
 ├── static/                        # GitHub Pages Website
 │   ├── _config.yml                # Jekyll-Konfiguration
 │   └── index.md                   # Installationsseite
@@ -46,12 +35,10 @@ esphome-4848s040/
 ## Zentrale Komponenten
 - **Hauptkonfiguration**: [esphome-4848s040.yaml](esphome-4848s040.yaml) – Importiert alle Module
 - **Factory-Konfiguration**: [esphome-4848s040.factory.yaml](esphome-4848s040.factory.yaml) – Provisioning/Dashboard-Import
-- **Core-Module**: [packages/core/](packages/core/) – Basis, WiFi, API, Display, Touchscreen
+- **Core-Module**: [packages/core/](packages/core/) – Basis, WiFi, API, Updates
 - **Sensoren**: [packages/sensors/](packages/sensors/) – Diagnostik, System-Info
 - **Buttons**: [packages/buttons/](packages/buttons/) – System-Steuerung
-- **Integrationen**: [packages/integrations/](packages/integrations/) – Globals, Outputs, Lights, Numbers
-- **LVGL**: [packages/lvgl/](packages/lvgl/) – Display-UI mit LVGL
-- **Scripts**: [packages/scripts/](packages/scripts/) – ESPHome-Skripte
+- **Integrationen**: [packages/integrations/](packages/integrations/) – Bereit für projektspezifische Erweiterungen
 
 ## Build & Tests
 - **CI**: [.github/workflows/ci.yml](.github/workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
@@ -78,11 +65,6 @@ esphome-4848s040/
 2. In [esphome-4848s040.yaml](esphome-4848s040.yaml) unter `packages:` einbinden
 3. CI testen
 
-### LVGL-UI erweitern
-1. [packages/lvgl/displays.yaml](packages/lvgl/displays.yaml) bearbeiten
-2. Neue Widgets/Screens hinzufügen
-3. Touchscreen-Events in [packages/core/touchscreen.yaml](packages/core/touchscreen.yaml) verknüpfen
-
 ### Beispiel für neue Integration
 ```yaml
 # packages/integrations/meine_integration.yaml
@@ -105,5 +87,4 @@ packages:
 3. **Substitutions zentral**: Nur in `base.yaml` definieren
 4. **CI nutzen**: Vor Merge alle ESPHome-Versionen testen
 5. **Dokumentation**: Bei neuen Integrationen README aktualisieren
-6. **LVGL-Performance**: PSRAM nutzen für große UI-Elemente
-7. **Versionierung**: Version in `base.yaml` bei Änderungen aktualisieren
+6. **Versionierung**: Version in `base.yaml` bei Änderungen aktualisieren
