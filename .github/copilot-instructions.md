@@ -11,13 +11,27 @@ esphome-4848s040/
 ├── packages/
 │   ├── core/                      # Grundlegende Konfigurationen
 │   │   ├── base.yaml              # ESPHome-Basis, Board, Logger
+│   │   ├── colors.yaml            # Zentrale Farbdefinitionen (Substitutionen)
 │   │   ├── wifi.yaml              # WiFi & Captive Portal
 │   │   ├── api.yaml               # API, OTA, HTTP-Request
-│   │   └── updates.yaml           # Firmware-Updates
+│   │   ├── updates.yaml           # Firmware-Updates
+│   │   ├── display.yaml           # Display-Konfiguration
+│   │   ├── images.yaml            # Bilder für LVGL
+│   │   └── touchscreen.yaml       # Touchscreen-Konfiguration
 │   ├── sensors/                   # Sensor-Definitionen
 │   │   ├── diagnostics.yaml       # Uptime, WiFi-Signal
 │   │   └── system_info.yaml       # Firmware-Version, Netzwerk-Info
 │   ├── buttons/                   # Button-Definitionen
+│   │   └── system.yaml            # System-Buttons
+│   ├── integrations/              # Projektspezifische Integrationen
+│   │   ├── globals.yaml           # Globale Variablen
+│   │   ├── light.yaml             # Licht-Komponenten
+│   │   ├── number.yaml            # Number-Komponenten
+│   │   └── output.yaml            # Output-Komponenten
+│   ├── lvgl/                      # LVGL Display-UI
+│   │   └── displays.yaml          # LVGL-Display-Layout und Widgets
+│   └── scripts/                   # ESPHome-Scripts
+│       └── script.yaml            # Automations-Scripts
 │   │   └── system.yaml            # Restart, Update-Check
 │   └── integrations/              # Projektspezifische Integrationen (leer, für zukünftige Nutzung)
 ├── static/                        # GitHub Pages Website
@@ -34,10 +48,12 @@ esphome-4848s040/
 ## Zentrale Komponenten
 - **Hauptkonfiguration**: [esphome-4848s040.yaml](../esphome-4848s040.yaml) – Importiert alle Module
 - **Factory-Konfiguration**: [esphome-4848s040.factory.yaml](../esphome-4848s040.factory.yaml) – Provisioning/Dashboard-Import
-- **Core-Module**: [packages/core/](../packages/core/) – Basis, WiFi, API, Updates
+- **Farbschema**: [packages/core/colors.yaml](../packages/core/colors.yaml) – Zentrale Farbdefinitionen als Substitutionen
+- **Core-Module**: [packages/core/](../packages/core/) – Basis, WiFi, API, Updates, Display
 - **Sensoren**: [packages/sensors/](../packages/sensors/) – Diagnostik, System-Info
 - **Buttons**: [packages/buttons/](../packages/buttons/) – System-Steuerung
-- **Integrationen**: [packages/integrations/](../packages/integrations/) – Verzeichnis für projektspezifische Integrationen (aktuell leer)
+- **Integrationen**: [packages/integrations/](../packages/integrations/) – Projekt-spezifische Module
+- **LVGL-UI**: [packages/lvgl/](../packages/lvgl/) – Display-Layout und Widgets
 
 ## Build & Tests
 - **CI**: [.github/workflows/ci.yml](workflows/ci.yml) – Baut beide YAMLs gegen ESPHome `stable`, `beta`, `dev`
@@ -49,7 +65,8 @@ esphome-4848s040/
 - Namenssuffix: `name_add_mac_suffix: true` für eindeutige Gerätenamen
 - Board: `esp32-s3-devkitc-1`, Framework: `esp-idf`
 - Modularer Aufbau: Ein Modul pro Funktion/Feature
-- Substitutions nur in `packages/core/base.yaml` definieren
+- Substitutions nur in `packages/core/base.yaml` und `packages/core/colors.yaml` definieren
+- **Farben zentral verwalten**: In [packages/core/colors.yaml](../packages/core/colors.yaml) definieren, überall mit `${color_name}` verwenden
 - Aktuelle Version: `2026.1.9` (siehe [packages/core/base.yaml](../packages/core/base.yaml))
 
 ## Typische Aufgaben
@@ -80,10 +97,39 @@ packages:
   meine_integration: !include packages/integrations/meine_integration.yaml
 ```
 
+### Farben verwenden und anpassen
+
+Alle verfügbaren Farben sind in [packages/core/colors.yaml](../packages/core/colors.yaml) definiert:
+
+**Beispiel - Farbe in Widget verwenden:**
+```yaml
+# packages/lvgl/displays.yaml
+widgets:
+  - label:
+      text_color: ${color_primary}      # Primärfarbe
+      bg_color: ${color_bg_dark}        # Dunkler Hintergrund
+```
+
+**Beispiel - Neue Farbe hinzufügen:**
+1. Farbe in `packages/core/colors.yaml` definieren:
+   ```yaml
+   substitutions:
+     color_my_custom: "0x123456"
+   ```
+2. Überall im Projekt mit `${color_my_custom}` verwenden
+
+**Verfügbare Farben:**
+- **Primär**: `${color_primary}`, `${color_primary_dark}`
+- **Status**: `${color_success}`, `${color_warning}`, `${color_error}`, `${color_info}`
+- **Hintergrund**: `${color_bg_dark}`, `${color_bg_light}`
+- **Text**: `${color_text_primary}`, `${color_text_secondary}`, `${color_text_disabled}`
+- **Neutral**: `${color_white}`, `${color_black}`, `${color_gray_light}`, `${color_gray_medium}`, `${color_gray_dark}`
+
 ## Best Practices
 1. **Modulare Trennung**: Jedes Feature in eigener Datei
 2. **Konsistente Benennung**: Dateinamen beschreiben Inhalt
-3. **Substitutions zentral**: Nur in `base.yaml` definieren
-4. **CI nutzen**: Vor Merge alle ESPHome-Versionen testen
-5. **Dokumentation**: Bei neuen Integrationen README aktualisieren
-6. **Versionierung**: Version in `base.yaml` bei Änderungen aktualisieren
+3. **Farben zentral**: Nur in `colors.yaml` definieren und mit `${color_name}` verwenden
+4. **Substitutions zentral**: Nur in `base.yaml` und `colors.yaml` definieren
+5. **CI nutzen**: Vor Merge alle ESPHome-Versionen testen
+6. **Dokumentation**: Bei neuen Integrationen diese Anleitung aktualisieren
+7. **Versionierung**: Version in `base.yaml` bei Änderungen aktualisieren

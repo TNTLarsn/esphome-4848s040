@@ -2,6 +2,9 @@
 # Diese Datei importiert alle modularen Pakete
 
 packages:
+  # Konfiguration & Design
+  colors: !include packages/core/colors.yaml
+  
   # Core-Komponenten
   base: !include packages/core/base.yaml
   wifi: !include packages/core/wifi.yaml
