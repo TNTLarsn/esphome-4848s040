@@ -120,8 +120,8 @@ widgets:
 - **Primär**: `${color_primary}`, `${color_primary_dark}`
 - **Status**: `${color_success}`, `${color_warning}`, `${color_error}`, `${color_info}`
 - **Hintergrund**: `${color_bg_dark}`, `${color_bg_light}`
-- **Text**: `${color_text_primary}`, `${color_text_secondary}`, `${color_text_disabled}`
-- **Neutral**: `${color_white}`, `${color_black}`, `${color_gray_light}`, `${color_gray_medium}`, `${color_gray_dark}`
+- **Text**: `${color_text_light_primary}`, `${color_text_light_secondary}`, `${color_text_light_disabled}`, `${color_text_dark_primary}`, `${color_text_dark_secondary}`, `${color_text_dark_disabled}`
+- **Neutral**: `${color_white}`, `${color_black}`, Graustufen `${color_gray_50}` … `${color_gray_900}`
 
 ## Best Practices
 1. **Modulare Trennung**: Jedes Feature in eigener Datei
