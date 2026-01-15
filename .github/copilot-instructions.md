@@ -32,8 +32,6 @@ esphome-4848s040/
 │   │   └── displays.yaml          # LVGL-Display-Layout und Widgets
 │   └── scripts/                   # ESPHome-Scripts
 │       └── script.yaml            # Automations-Scripts
-│   │   └── system.yaml            # Restart, Update-Check
-│   └── integrations/              # Projektspezifische Integrationen (leer, für zukünftige Nutzung)
 ├── static/                        # GitHub Pages Website
 │   ├── _config.yml                # Jekyll-Konfiguration
 │   └── index.md                   # Installationsseite
