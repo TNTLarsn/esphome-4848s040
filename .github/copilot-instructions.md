@@ -63,8 +63,7 @@ esphome-4848s040/
 - Namenssuffix: `name_add_mac_suffix: true` für eindeutige Gerätenamen
 - Board: `esp32-s3-devkitc-1`, Framework: `esp-idf`
 - Modularer Aufbau: Ein Modul pro Funktion/Feature
-- Substitutions nur in `packages/core/base.yaml` und `packages/core/colors.yaml` definieren
-- **Farben zentral verwalten**: In [packages/core/colors.yaml](../packages/core/colors.yaml) definieren, überall mit `${color_name}` verwenden
+- **Farben zentral verwalten**: In [packages/core/colors.yaml](../packages/core/colors.yaml) als ESPHome `color:` Component definieren, überall mit `color_name` (ohne `${}`) verwenden
 - Aktuelle Version: `2026.1.9` (siehe [packages/core/base.yaml](../packages/core/base.yaml))
 
 ## Typische Aufgaben
@@ -97,37 +96,48 @@ packages:
 
 ### Farben verwenden und anpassen
 
-Alle verfügbaren Farben sind in [packages/core/colors.yaml](../packages/core/colors.yaml) definiert:
+Alle verfügbaren Farben sind in [packages/core/colors.yaml](../packages/core/colors.yaml) als ESPHome `color:` Component definiert:
 
 **Beispiel - Farbe in Widget verwenden:**
 ```yaml
 # packages/lvgl/displays.yaml
 widgets:
   - label:
-      text_color: ${color_primary}      # Primärfarbe
-      bg_color: ${color_bg_dark}        # Dunkler Hintergrund
+      text_color: color_primary      # Primärfarbe
+      bg_color: color_bg_dark        # Dunkler Hintergrund
 ```
 
 **Beispiel - Neue Farbe hinzufügen:**
 1. Farbe in `packages/core/colors.yaml` definieren:
    ```yaml
-   substitutions:
-     color_my_custom: "0x123456"
+   color:
+     - id: color_my_custom
+       hex: "123456"
    ```
-2. Überall im Projekt mit `${color_my_custom}` verwenden
+2. Überall im Projekt mit `color_my_custom` verwenden
+
+**Beispiel - Farbe dynamisch in Lambda verwenden:**
+```yaml
+on_press:
+  - lvgl.label.update:
+      id: my_label
+      text_color: !lambda return id(color_primary);
+```
 
 **Verfügbare Farben:**
-- **Primär**: `${color_primary}`, `${color_primary_dark}`
-- **Status**: `${color_success}`, `${color_warning}`, `${color_error}`, `${color_info}`
-- **Hintergrund**: `${color_bg_dark}`, `${color_bg_light}`
-- **Text**: `${color_text_light_primary}`, `${color_text_light_secondary}`, `${color_text_light_disabled}`, `${color_text_dark_primary}`, `${color_text_dark_secondary}`, `${color_text_dark_disabled}`
-- **Neutral**: `${color_white}`, `${color_black}`, Graustufen `${color_gray_50}` … `${color_gray_900}`
+- **Primär**: `color_primary`, `color_primary_dark`, `color_primary_light`
+- **Sekundär**: `color_secondary`, `color_secondary_dark`
+- **Status**: `color_success`, `color_success_dark`, `color_warning`, `color_error`, `color_error_dark`, `color_info`
+- **Hintergrund**: `color_bg_dark`, `color_bg_dark_secondary`, `color_bg_dark_tertiary`, `color_bg_light`, `color_bg_light_secondary`
+- **Text**: `color_text_light_primary`, `color_text_light_secondary`, `color_text_light_disabled`, `color_text_dark_primary`, `color_text_dark_secondary`, `color_text_dark_disabled`
+- **Neutral**: `color_white`, `color_black`, Graustufen `color_gray_50` … `color_gray_900`
+- **Surface**: `color_surface`, `color_surface_dark`
 
 ## Best Practices
 1. **Modulare Trennung**: Jedes Feature in eigener Datei
 2. **Konsistente Benennung**: Dateinamen beschreiben Inhalt
-3. **Farben zentral**: Nur in `colors.yaml` definieren und mit `${color_name}` verwenden
-4. **Substitutions zentral**: Nur in `base.yaml` und `colors.yaml` definieren
+3. **Farben zentral**: Nur in `colors.yaml` als `color:` Component definieren und mit `color_name` (ohne `id()` oder `${}`) verwenden
+4. **Substitutions zentral**: Nur in `base.yaml` definieren (nicht für Farben!)
 5. **CI nutzen**: Vor Merge alle ESPHome-Versionen testen
 6. **Dokumentation**: Bei neuen Integrationen diese Anleitung aktualisieren
 7. **Versionierung**: Version in `base.yaml` bei Änderungen aktualisieren
