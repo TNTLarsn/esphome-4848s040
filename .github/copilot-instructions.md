@@ -121,7 +121,7 @@ widgets:
 on_press:
   - lvgl.label.update:
       id: my_label
-      text_color: !lambda return id(color_primary);
+      text_color: !lambda 'return id(color_primary);'
 ```
 
 **Verfügbare Farben:**
