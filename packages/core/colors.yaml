@@ -1,58 +1,95 @@
-substitutions:
-  # Home Assistant Official Color Palette
-  # Source: https://design.home-assistant.io/
-  # Based on Material Design & Home Assistant Frontend
-  
+# Home Assistant Official Color Palette
+# Source: https://design.home-assistant.io/
+# Based on Material Design & Home Assistant Frontend
+# Using native ESPHome color component for better runtime flexibility
+
+color:
   # Primary Colors - Home Assistant Blue
-  color_primary: "0x3B82F6"        # Home Assistant Blue (Primary)
-  color_primary_dark: "0x1E40AF"   # Home Assistant Blue Dark
-  color_primary_light: "0x60A5FA"  # Home Assistant Blue Light
+  - id: color_primary
+    hex: "3B82F6"  # Home Assistant Blue (Primary)
+  - id: color_primary_dark
+    hex: "1E40AF"  # Home Assistant Blue Dark
+  - id: color_primary_light
+    hex: "60A5FA"  # Home Assistant Blue Light
   
   # Secondary Colors
-  color_secondary: "0xF59E0B"      # Amber - Secondary Action
-  color_secondary_dark: "0xD97706" # Amber Dark
+  - id: color_secondary
+    hex: "F59E0B"  # Amber - Secondary Action
+  - id: color_secondary_dark
+    hex: "D97706"  # Amber Dark
   
   # Status Colors
-  color_success: "0x10B981"        # Green - Success/On
-  color_success_dark: "0x059669"   # Green Dark
-  color_warning: "0xF59E0B"        # Amber - Warning
-  color_error: "0xEF4444"          # Red - Error/Off
-  color_error_dark: "0xDC2626"     # Red Dark
-  color_info: "0x06B6D4"           # Cyan - Info
+  - id: color_success
+    hex: "10B981"  # Green - Success/On
+  - id: color_success_dark
+    hex: "059669"  # Green Dark
+  - id: color_warning
+    hex: "F59E0B"  # Amber - Warning
+  - id: color_error
+    hex: "EF4444"  # Red - Error/Off
+  - id: color_error_dark
+    hex: "DC2626"  # Red Dark
+  - id: color_info
+    hex: "06B6D4"  # Cyan - Info
   
   # Neutral Colors
-  color_white: "0xFFFFFF"          # White
-  color_black: "0x000000"          # Black
-  color_gray_50: "0xF9FAFB"        # Grau 50 (sehr hell)
-  color_gray_100: "0xF3F4F6"       # Grau 100
-  color_gray_200: "0xE5E7EB"       # Grau 200
-  color_gray_300: "0xD1D5DB"       # Grau 300
-  color_gray_400: "0x9CA3AF"       # Grau 400 (medium)
-  color_gray_500: "0x6B7280"       # Grau 500
-  color_gray_600: "0x4B5563"       # Grau 600
-  color_gray_700: "0x374151"       # Grau 700
-  color_gray_800: "0x1F2937"       # Grau 800
-  color_gray_900: "0x111827"       # Grau 900 (sehr dunkel)
+  - id: color_white
+    hex: "FFFFFF"  # White
+  - id: color_black
+    hex: "000000"  # Black
+  - id: color_gray_50
+    hex: "F9FAFB"  # Grau 50 (sehr hell)
+  - id: color_gray_100
+    hex: "F3F4F6"  # Grau 100
+  - id: color_gray_200
+    hex: "E5E7EB"  # Grau 200
+  - id: color_gray_300
+    hex: "D1D5DB"  # Grau 300
+  - id: color_gray_400
+    hex: "9CA3AF"  # Grau 400 (medium)
+  - id: color_gray_500
+    hex: "6B7280"  # Grau 500
+  - id: color_gray_600
+    hex: "4B5563"  # Grau 600
+  - id: color_gray_700
+    hex: "374151"  # Grau 700
+  - id: color_gray_800
+    hex: "1F2937"  # Grau 800
+  - id: color_gray_900
+    hex: "111827"  # Grau 900 (sehr dunkel)
   
   # Background Colors - Light Mode
-  color_bg_light: "0xFFFFFF"       # Weißer Hintergrund
-  color_bg_light_secondary: "0xF9FAFB"  # Hellgrau Hintergrund
+  - id: color_bg_light
+    hex: "FFFFFF"  # Weißer Hintergrund
+  - id: color_bg_light_secondary
+    hex: "F9FAFB"  # Hellgrau Hintergrund
   
   # Background Colors - Dark Mode
-  color_bg_dark: "0x111827"        # Dunkler Hintergrund (Grau 900)
-  color_bg_dark_secondary: "0x1F2937"   # Sekundärer dunkler Hintergrund (Grau 800)
-  color_bg_dark_tertiary: "0x374151"    # Tertiärer dunkler Hintergrund (Grau 700)
+  - id: color_bg_dark
+    hex: "111827"  # Dunkler Hintergrund (Grau 900)
+  - id: color_bg_dark_secondary
+    hex: "1F2937"  # Sekundärer dunkler Hintergrund (Grau 800)
+  - id: color_bg_dark_tertiary
+    hex: "374151"  # Tertiärer dunkler Hintergrund (Grau 700)
   
   # Text Colors - Light Mode
-  color_text_light_primary: "0x111827"   # Dunkler Text auf hellem Hintergrund
-  color_text_light_secondary: "0x6B7280" # Grauer Text (sekundär)
-  color_text_light_disabled: "0x9CA3AF"  # Grauer Text (deaktiviert)
+  - id: color_text_light_primary
+    hex: "111827"  # Dunkler Text auf hellem Hintergrund
+  - id: color_text_light_secondary
+    hex: "6B7280"  # Grauer Text (sekundär)
+  - id: color_text_light_disabled
+    hex: "9CA3AF"  # Grauer Text (deaktiviert)
   
   # Text Colors - Dark Mode
-  color_text_dark_primary: "0xF9FAFB"    # Heller Text auf dunklem Hintergrund
-  color_text_dark_secondary: "0xD1D5DB"  # Heller grauer Text (sekundär)
-  color_text_dark_disabled: "0x9CA3AF"   # Grauer Text (deaktiviert)
+  - id: color_text_dark_primary
+    hex: "F9FAFB"  # Heller Text auf dunklem Hintergrund
+  - id: color_text_dark_secondary
+    hex: "D1D5DB"  # Heller grauer Text (sekundär)
+  - id: color_text_dark_disabled
+    hex: "9CA3AF"  # Grauer Text (deaktiviert)
   
   # Surface Colors
-  color_surface: "0xFFFFFF"        # Surface (Light)
-  color_surface_dark: "0x1F2937"   # Surface (Dark)
+  - id: color_surface
+    hex: "FFFFFF"  # Surface (Light)
+  - id: color_surface_dark
+    hex: "1F2937"  # Surface (Dark)
