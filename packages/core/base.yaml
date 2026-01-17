@@ -3,6 +3,8 @@ substitutions:
   friendly_name: "ESPhome 4848S040 Display"
   project_name: "TNT_Larsn.ESPhome Display"
   version: "2026.1.9"
+  # Note: timezone is consumed in packages/core/time.yaml (time component configuration)
+  timezone: "Europe/Berlin"
 
 esphome:
   name: ${name}
@@ -11,6 +13,11 @@ esphome:
   project:
     name: ${project_name}
     version: ${version}
+  includes:
+    - <sstream>
+    - <algorithm>
+  platformio_options:
+    board_build.flash_mode: dio
 
 esp32:
   board: esp32-s3-devkitc-1
@@ -22,8 +29,13 @@ esp32:
       CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240: "y"
       CONFIG_ESP32S3_DATA_CACHE_64KB: "y"
       CONFIG_ESP32S3_DATA_CACHE_LINE_64B: "y"
-      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: y
-      CONFIG_SPIRAM_RODATA: y
+      CONFIG_SPIRAM_FETCH_INSTRUCTIONS: "y"
+      CONFIG_SPIRAM_RODATA: "y"
+      CONFIG_SPIRAM_MODE_OCTAL: "y"
+      CONFIG_ESPTOOLPY_FLASHSIZE_16MB: "y"
+      CONFIG_PARTITION_TABLE_TWO_OTA: "y"
+      CONFIG_COMPILER_OPTIMIZATION_PERF: "y"
+      CONFIG_ESP_CONSOLE_UART_DEFAULT: "y"
 
 psram:
   mode: octal

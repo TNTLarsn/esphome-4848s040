@@ -1,11 +1,17 @@
 #-------------------------------------------
 # Touchscreen gt911 i2c
 #-------------------------------------------
+
 i2c:
   - id: bus_a
     sda: GPIO19
-    scl: GPIO45
-    scan: true
+    scl:
+      number: GPIO45
+      ignore_strapping_warning: true
+    # Reduced from default (400kHz) to 100kHz to improve GT911 reliability on this PCB;
+    # higher I2C speeds caused intermittent touch events / ghost touches, so we trade
+    # a small reduction in maximum touch update rate for stable, accurate input.
+    frequency: 100kHz
     
 touchscreen:
   platform: gt911
@@ -26,5 +32,23 @@ touchscreen:
               touch.x_raw,
               touch.y_raw
               );
-    - script.stop: screen_light
-    - script.execute: screen_light
+  on_release:
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - logger.log: "LVGL resuming"
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - light.turn_on: display_backlight
+    #- script.stop: screen_light
+    #- script.execute: screen_light
+    # TODO: Re-enable screen_light script calls when automatic backlight timeout / dimming is implemented.
+    # - script.stop: screen_light
+    # - script.execute: screen_light
+
+lvgl:
+  displays: my_display
+  touchscreens: 
+    - touchscreen_id: my_touchscreen
+      long_press_time: 5000ms
+      long_press_repeat_time: 400ms

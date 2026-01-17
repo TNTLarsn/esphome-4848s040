@@ -1,0 +1,9 @@
+- platform: sntp
+  id: sntp_time
+  timezone: "${timezone}"
+  servers:
+    - ntp0.ntp-servers.net
+    - ntp1.ntp-servers.net
+    - ntp2.ntp-servers.net
+  # TODO: Re-enable on_time_sync/on_time handlers to run the time_update script once
+  #       it is implemented/required (e.g. for periodic UI or state updates on time changes).
