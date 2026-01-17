@@ -205,7 +205,7 @@ lvgl:
                         align: top_right
                         text_font: nunito_18
                         text_color: color_text_dark_primary
-                        text: ${version}
+                        text: !lambda 'return "${version}";'
         
         
 script:
