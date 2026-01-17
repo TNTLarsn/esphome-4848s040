@@ -1,6 +1,0 @@
-lvgl:
-  displays: [my_display]
-  touchscreens: 
-    - touchscreen_id: my_touchscreen
-      long_press_time: 5000ms
-      long_press_repeat_time: 400ms

@@ -10,6 +10,7 @@ packages:
   wifi: !include packages/core/wifi.yaml
   api: !include packages/core/api.yaml
   updates: !include packages/core/updates.yaml
+  display: !include packages/core/display.yaml
 
   # Core Widgets
   loading_page: !include packages/core/widgets/loading.yaml
@@ -22,16 +23,12 @@ packages:
   system_buttons: !include packages/buttons/system.yaml
 
   # Integrationen (hier weitere hinzufügen)
-  display: !include packages/core/display.yaml
   images: !include packages/core/images.yaml
   touchscreen: !include packages/core/touchscreen.yaml
 
   globals: !include packages/integrations/globals.yaml
   
   lights: !include packages/integrations/light.yaml
-
-
-  lvgl: !include packages/lvgl/displays.yaml
   scripts: !include packages/scripts/script.yaml
 
   # Widgets
