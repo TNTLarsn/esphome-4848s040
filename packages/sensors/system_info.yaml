@@ -25,15 +25,11 @@ text_sensor:
     name: "ESPHome Version"
     id: esphome_version
     lambda: |-
-      try {
       #ifdef ESPHOME_VERSION
         return std::string(ESPHOME_VERSION);
       #else
         return std::string("unknown");
       #endif
-      } catch (...) {
-        return std::string("unknown");
-      }
     on_value:
       then:
         - lvgl.label.update:
