@@ -281,12 +281,8 @@ script:
       - lambda: |-
           lv_obj_add_flag(id(info_widget), LV_OBJ_FLAG_HIDDEN);
       - delay: 150ms
-
-
-      - delay: 150ms
       - lambda: |-
           id(is_animating) = false;
-
   # # 5. HOME -> SETTINGS (исправленный с сбросом состояния)
   # - id: animate_home_to_settings
   #   then:
