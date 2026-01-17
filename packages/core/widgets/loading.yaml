@@ -5,6 +5,10 @@ globals:
 
 esphome:
   on_boot:
+    # Old boot screen implementation replaced with new loading page architecture.
+    # The previous approach used static delays and a simple hide operation.
+    # New implementation provides dynamic status updates, connection tracking,
+    # and synchronization progress feedback via the loading_page widget.
     # - delay: 5s
     # - lvgl.widget.hide: boot_screen
     # - delay: 30s
