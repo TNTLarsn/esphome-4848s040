@@ -1,12 +1,6 @@
 #-------------------------------------------
 # Touchscreen gt911 i2c
 #-------------------------------------------
-output:
-    # Backlight LED
-  - platform: ledc
-    pin: GPIO38
-    id: backlight_output
-    frequency: 100Hz
 
 i2c:
   - id: bus_a
