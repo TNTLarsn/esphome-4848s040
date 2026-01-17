@@ -5,10 +5,5 @@
     - ntp0.ntp-servers.net
     - ntp1.ntp-servers.net
     - ntp2.ntp-servers.net
-  # on_time_sync:
-  #   - script.execute: time_update
-  # on_time:
-  #   - minutes: '*'
-  #     seconds: 0
-  #     then:
-  #       - script.execute: time_update
+  # TODO: Re-enable on_time_sync/on_time handlers to run the time_update script once
+  #       it is implemented/required (e.g. for periodic UI or state updates on time changes).
