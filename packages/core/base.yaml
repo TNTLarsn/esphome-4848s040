@@ -2,7 +2,7 @@ substitutions:
   name: "esphome-4848s040"
   friendly_name: "ESPhome 4848S040 Display"
   project_name: "TNT_Larsn.ESPhome Display"
-  version: "2026.1.9"
+  version: "2026.1.10"
   # Note: timezone is consumed in packages/core/time.yaml (time component configuration)
   timezone: "Europe/Berlin"
 
