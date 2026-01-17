@@ -1,6 +1,12 @@
 #-------------------------------------------
 # Internal outputs
 #-------------------------------------------
+# Backlight LED
+- platform: ledc
+  pin: GPIO38
+  id: backlight_output
+  frequency: 100Hz
+
 # Built in 240v relay
 - platform: gpio
   pin: 40
