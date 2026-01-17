@@ -2,15 +2,15 @@
 # Diese Datei importiert alle modularen Pakete
 
 packages:
-  # Konfiguration & Design
-  colors: !include packages/core/colors.yaml
-  
   # Core-Komponenten
   base: !include packages/core/base.yaml
   wifi: !include packages/core/wifi.yaml
   api: !include packages/core/api.yaml
   updates: !include packages/core/updates.yaml
   display: !include packages/core/display.yaml
+
+   # Konfiguration & Design
+  colors: !include packages/core/colors.yaml
 
   # Core Widgets
   loading_page: !include packages/core/widgets/loading.yaml
