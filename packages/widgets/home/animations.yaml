@@ -281,12 +281,8 @@ script:
       - lambda: |-
           lv_obj_add_flag(id(info_widget), LV_OBJ_FLAG_HIDDEN);
       - delay: 150ms
-
-
-      - delay: 150ms
       - lambda: |-
           id(is_animating) = false;
-
   # # 5. HOME -> SETTINGS (исправленный с сбросом состояния)
   # - id: animate_home_to_settings
   #   then:
@@ -1308,29 +1304,10 @@ script:
   #     - lambda: |-
   #         // 4. ТОЛЬКО ПОТОМ появляются INFO элементы
           
-  #         lv_anim_t anim_circle_info_fade;
-  #         lv_anim_init(&anim_circle_info_fade);
-  #         lv_anim_set_var(&anim_circle_info_fade, id(circle_info_widget));
-  #         lv_anim_set_values(&anim_circle_info_fade, 0, 255);
-  #         lv_anim_set_time(&anim_circle_info_fade, 600);
-  #         lv_anim_set_exec_cb(&anim_circle_info_fade, [](void * var, int32_t v) {
-  #           lv_obj_set_style_opa((lv_obj_t*)var, v, 0);
-  #         });
-  #         lv_anim_set_path_cb(&anim_circle_info_fade, lv_anim_path_ease_in_out);
-  #         lv_anim_start(&anim_circle_info_fade);
-          
-  #         lv_anim_t anim_info_fade;
-  #         lv_anim_init(&anim_info_fade);
-  #         lv_anim_set_var(&anim_info_fade, id(info_widget));
-  #         lv_anim_set_values(&anim_info_fade, 0, 255);
-  #         lv_anim_set_time(&anim_info_fade, 600);
-  #         lv_anim_set_exec_cb(&anim_info_fade, [](void * var, int32_t v) {
-  #           lv_obj_set_style_opa((lv_obj_t*)var, v, 0);
-  #         });
-  #         lv_anim_set_path_cb(&anim_info_fade, lv_anim_path_ease_in_out);
-  #         lv_anim_start(&anim_info_fade);
-
-  #     - delay: 150ms
-  #     - script.execute: log_widgets_status
-  #     - lambda: |-
-  #         id(is_animating) = false;
+  # NOTE:
+  #   A large block of detailed, experimental LVGL animation code was removed
+  #   from this file to keep the home widget animations configuration concise
+  #   and maintainable. If you need the legacy animation prototypes, place
+  #   them in a dedicated module (e.g. `packages/widgets/home/animations_legacy.yaml`)
+  #   or in project documentation (e.g. `docs/animations.md`) and reference
+  #   them from here as needed.

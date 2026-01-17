@@ -34,9 +34,9 @@ sensor:
             id: wifi_status
             text_color: !lambda |-
               if (id(wifi_signal_percent).state > 0) {
-                return lv_color_hex(0x5CA848);
+                return id(color_success);
               }
-              return lv_color_hex(0xE53935);
+              return id(color_error);
             text: !lambda |-
               if (id(wifi_signal_percent).state > 0 && id(wifi_signal_percent).state < 26) {
               return "${wifi_25_icon}";

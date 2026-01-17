@@ -13,6 +13,7 @@ script:
           brightness: 50%
           transition_length: 2s
       - delay: 2min
+      # TODO: Re-enable clock_page once the dedicated clock LVGL page/UX is finalized.
       #- lvgl.page.show: clock_page
       - light.turn_on:
           id: display_backlight

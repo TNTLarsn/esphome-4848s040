@@ -42,3 +42,10 @@ touchscreen:
             - light.turn_on: display_backlight
     #- script.stop: screen_light
     #- script.execute: screen_light
+    # TODO: Re-enable screen_light script calls when automatic backlight timeout / dimming is implemented.
+    # - script.stop: screen_light
+    # - script.execute: screen_light
+
+lvgl:
+  displays: [my_display]
+  touchscreens: [my_touchscreen]

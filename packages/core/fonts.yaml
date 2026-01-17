@@ -73,7 +73,6 @@
   glyphsets:
     - GF_Latin_Core
     - GF_Cyrillic_Core
-    - 
 # CUSTOM ICONS FONT
 
 - file: "fonts/icons_v2.ttf"
