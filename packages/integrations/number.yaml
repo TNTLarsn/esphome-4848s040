@@ -1,15 +1,26 @@
-number:
-  - platform: template
-    id: dimmer_val
-    name: "Dimmer Level"
-    min_value: 0
-    max_value: 255
-    step: 1
-    initial_value: 160
-    optimistic: true
-    internal: true
-    on_value:
-      then:
-        - globals.set:
-            id: dimmer_level
-            value: !lambda 'return int(x);'
+- platform: template
+  id: dimmer_val
+  name: "Dimmer Level"
+  min_value: 0
+  max_value: 255
+  step: 1
+  initial_value: 160
+  optimistic: true
+  internal: true
+  on_value:
+    then:
+      - globals.set:
+          id: dimmer_level
+          value: !lambda 'return int(x);'
+          
+- platform: template
+  id: display_timeout_backlight
+  name: Backlight timeout
+  optimistic: true
+  unit_of_measurement: "m"
+  initial_value: 10
+  restore_value: true
+  min_value: -1
+  max_value: 720
+  step: 1
+  mode: box

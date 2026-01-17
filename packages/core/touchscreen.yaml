@@ -1,11 +1,20 @@
 #-------------------------------------------
 # Touchscreen gt911 i2c
 #-------------------------------------------
+output:
+    # Backlight LED
+  - platform: ledc
+    pin: GPIO38
+    id: backlight_output
+    frequency: 100Hz
+
 i2c:
   - id: bus_a
     sda: GPIO19
-    scl: GPIO45
-    scan: true
+    scl:
+      number: GPIO45
+      ignore_strapping_warning: true
+    frequency: 100kHz
     
 touchscreen:
   platform: gt911
@@ -26,5 +35,17 @@ touchscreen:
               touch.x_raw,
               touch.y_raw
               );
-    - script.stop: screen_light
-    - script.execute: screen_light
+  on_release:
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - logger.log: "LVGL resuming"
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - light.turn_on: display_backlight
+    #- script.stop: screen_light
+    #- script.execute: screen_light
+
+lvgl:
+  displays: [my_display]
+  touchscreens: [my_touchscreen]

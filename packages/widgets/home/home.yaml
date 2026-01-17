@@ -1,0 +1,241 @@
+packages:
+  animations: !include animations.yaml
+
+substitutions:
+  # Icons
+  ha_icon:                    "\U000F07D0" # home assistant
+  wifi_25_icon:               "\U0000e931" # wifi signal from 25% to 1%
+  wifi_50_icon:               "\U0000e932" # wifi signal from 50% to 25%
+  wifi_75_icon:               "\U0000e933" # wifi signal from 75% to 50%
+  wifi_100_icon:              "\U0000e934" # wifi signal from 100% to 75% or disable
+  info_icon:                  "\U000F1C70"
+
+globals:
+
+  - id: display_lock
+    type: bool
+    restore_value: yes
+    initial_value: 'false'
+
+  - id: display_timeout
+    type: int
+    restore_value: yes
+    initial_value: '2'
+
+  - id: is_animating
+    type: bool
+    restore_value: no
+    initial_value: 'false'
+  
+  - id: current_mode
+    type: int
+    initial_value: '0'  # 0=HOME, 1=WEATHER, 2=INFO, 3=SETTINGS
+
+lvgl:
+
+  on_idle:
+    timeout: !lambda "return (id(display_timeout_backlight).state * 60 * 1000);"
+    then:
+      - if:
+          condition:
+            lambda: 'return id(display_timeout_backlight).state >= 0;'
+          then:
+            - logger.log: "LVGL is idle"
+            - light.turn_off: display_backlight
+            - lvgl.pause:
+          else:
+            - logger.log: "LVGL idle, but backlight is on"
+
+  pages:
+    - id: home_page
+      bg_color: color_surface_dark
+      scrollable: false
+      widgets:
+        # indicators
+        - obj:
+            id: home_bg_indicators
+            y: 10
+            width: 460
+            height: 40
+            align: TOP_MID
+            pad_all: 0
+            bg_color: color_surface_dark
+            bg_opa: transp
+            border_opa: transp
+            border_width: 0
+            shadow_opa: transp
+            widgets:
+              - button:
+                  id: info_widget_btn
+                  clickable: true
+                  x: 0
+                  width: 40
+                  height: 40
+                  align: left_mid
+                  bg_opa: transp
+                  shadow_opa: transp
+                  on_click:
+                    - script.execute:
+                        id: switch_to_mode
+                        target_mode: 2
+                  widgets:
+                    # Wi-Fi status
+                    - label:
+                        id: wifi_status
+                        align: left_mid
+                        x: 0
+                        text: "${wifi_100_icon}"
+                        text_color: color_text_dark_primary
+                        text_font: icons_24
+
+              # Home Assistant status
+              - label:
+                  id: ha_status
+                  align: left_mid
+                  x: 60
+                  text: "${ha_icon}"
+                  text_color: color_text_dark_primary
+                  text_font: mdi_icons_24
+        - obj:
+            id: main_widget_background
+            hidden: false
+            y: 60
+            width: 440
+            height: 220
+            align: top_mid
+            clickable: false
+            scrollable: false
+            radius: 10
+            pad_all: 0
+            bg_color: color_bg_dark_tertiary
+            border_opa: transp
+            border_width: 0
+            shadow_opa: transp
+            widgets:
+              - obj:
+                  id: info_widget
+                  hidden: true
+                  width: 440
+                  height: 260
+                  align: top_mid
+                  clickable: false
+                  radius: 10
+                  pad_all: 0
+                  bg_opa: transp
+                  border_opa: transp
+                  border_width: 0
+                  shadow_opa: transp
+                  widgets:
+                    - label:  
+                        id: wifi_signal_info_label
+                        x: 20
+                        y: 30
+                        align: top_left
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "WiFi Signal:"
+                    - label:  
+                        id: wifi_signal_info_state
+                        x: -20
+                        y: 30
+                        align: top_right
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "-59 dBm"
+                    - label:  
+                        id: ip_address_info_label
+                        x: 20
+                        y: 70
+                        align: top_left
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "IP Address:"
+                    - label:  
+                        id: ip_address_info_state
+                        x: -20
+                        y: 70
+                        align: top_right
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "192.168.0.10"
+                    - label:  
+                        id: mac_address_info_label
+                        x: 20
+                        y: 110
+                        align: top_left
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "MAC Address:"
+                    - label:  
+                        id: mac_address_info_state
+                        x: -20
+                        y: 110
+                        align: top_right
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "12:34:56:78:90:AB"
+                    - label:  
+                        id: esphome_version_info_label
+                        x: 20
+                        y: 150
+                        align: top_left
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "ESPHome Version:"
+                    - label:  
+                        id: esphome_version_info_state
+                        x: -20
+                        y: 150
+                        align: top_right
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "2025.9.0"
+                    - label:  
+                        id: display_version_info_label
+                        x: 20
+                        y: 190
+                        align: top_left
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: "Display Version:"
+                    - label:  
+                        id: display_version_info_state
+                        x: -20
+                        y: 190
+                        align: top_right
+                        text_font: nunito_18
+                        text_color: color_text_dark_primary
+                        text: ${version}
+        
+        
+script:
+
+  # - id: time_update
+  #   mode: queued
+  #   then:
+  #     - lvgl.label.update:
+  #         id: time_value
+  #         text: !lambda |-
+  #           static char time_buf[16];
+  #           auto now = id(sntp_time).now();            
+  #           snprintf(time_buf, sizeof(time_buf), "%02d:%02d", now.hour, now.minute);
+  #           return time_buf;
+
+  #     - lvgl.label.update:
+  #         id: day_of_week_value
+  #         text: !lambda |-
+  #           auto now = id(sntp_time).now();
+  #           const char* days[] = {"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+  #           return days[now.day_of_week - 1];
+
+  #     - lvgl.label.update:
+  #         id: date_month_value
+  #         text: !lambda |-
+  #           auto now = id(sntp_time).now();
+  #           const char* months[] = {"Januar", "Februar", "März", "April", "Mai", "Juni", 
+  #                                   "Juli", "August", "September", "Oktober", "November", "Dezember"};
+            
+  #           static char buf[64];
+  #           snprintf(buf, sizeof(buf), "%02d %s", now.day_of_month, months[now.month - 1]);
+  #           return buf;
+

@@ -1,9 +1,23 @@
 light:
   - platform: monochromatic
-    output: GPIO38
+    output: backlight_output
     name: Backlight
-    id: backlight
+    id: display_backlight
     restore_mode: ALWAYS_ON
+    on_turn_on:
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - logger.log: "LVGL resuming by backlight on"
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+    on_turn_off:
+      - if:
+          condition:
+            lambda: 'return id(display_timeout_backlight).state >= 0;'
+          then:
+            - logger.log: "Backlight off, pausing LVGL"
+            - lvgl.pause:
   
   - platform: binary
     name: "Panel Switch"

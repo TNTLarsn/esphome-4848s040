@@ -1,0 +1,14 @@
+- platform: sntp
+  id: sntp_time
+  timezone: "${timezone}"
+  servers:
+    - ntp0.ntp-servers.net
+    - ntp1.ntp-servers.net
+    - ntp2.ntp-servers.net
+  # on_time_sync:
+  #   - script.execute: time_update
+  # on_time:
+  #   - minutes: '*'
+  #     seconds: 0
+  #     then:
+  #       - script.execute: time_update

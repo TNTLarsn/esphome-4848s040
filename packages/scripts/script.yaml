@@ -4,22 +4,22 @@ script:
     then:
       - lvgl.resume:
       - light.turn_on:
-          id: backlight
+          id: display_backlight
           brightness: 100%
           transition_length: 1s
       - delay: 30s
       - light.turn_on:
-          id: backlight
+          id: display_backlight
           brightness: 50%
           transition_length: 2s
       - delay: 2min
-      - lvgl.page.show: clock_page
+      #- lvgl.page.show: clock_page
       - light.turn_on:
-          id: backlight
+          id: display_backlight
           brightness: 35%
           transition_length: 5s
       - delay: 1min
       - light.turn_off:
-          id: backlight
+          id: display_backlight
       - lvgl.pause:
           show_snow: true

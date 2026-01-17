@@ -9,16 +9,42 @@ sensor:
   - platform: wifi_signal
     name: "WiFi Signal dBm"
     id: wifi_signal_db
-    update_interval: 60s
+    update_interval: 30s
     entity_category: "diagnostic"
     unit_of_measurement: "dBm"
     device_class: "signal_strength"
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: wifi_signal_info_state
+            text:
+              format: "%.1f dBm"
+              args: [id(wifi_signal_db).state]
 
-  - platform: copy
-    source_id: wifi_signal_db
-    name: "WiFi Percentage"
+  # WI-FI Signal Strength in %
+  - platform: wifi_signal
+    id: wifi_signal_percent
+    update_interval: 30s
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
     unit_of_measurement: "%"
-    entity_category: "diagnostic"
-    device_class: ""
+    on_value: 
+      then:
+        - lvgl.label.update:
+            id: wifi_status
+            text_color: !lambda |-
+              if (id(wifi_signal_percent).state > 0) {
+              return lv_color_hex(0x5CA848);
+              }
+              return lv_color_hex(0x5CA848);
+            text: !lambda |-
+              if (id(wifi_signal_percent).state > 0 && id(wifi_signal_percent).state < 26) {
+              return "${wifi_25_icon}";
+              } else if (id(wifi_signal_percent).state > 25 && id(wifi_signal_percent).state < 51) {
+              return "${wifi_50_icon}";
+              } else if (id(wifi_signal_percent).state > 50 && id(wifi_signal_percent).state < 76) {
+              return "${wifi_75_icon}";
+              } else if (id(wifi_signal_percent).state > 75) {
+              return "${wifi_100_icon}";
+              }
+              return "${wifi_100_icon}";

@@ -19,3 +19,16 @@ text_sensor:
     lambda: return std::string("${version}");
     icon: "mdi:information"
     entity_category: "diagnostic"
+
+    # ESPHome version with compilation date
+  - platform: template
+    name: "ESPHome Version"
+    id: esphome_version
+    lambda: |-
+      return {ESPHOME_VERSION};
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: esphome_version_info_state
+            text: !lambda 'return id(esphome_version).state;'
+    entity_category: "diagnostic"
