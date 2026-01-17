@@ -3,6 +3,8 @@ packages:
   - core: !include esphome-4848s040.yaml
 
 esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
   project:
     name: ${project_name}
     version: dev # replaced by release workflow with the tagged version
