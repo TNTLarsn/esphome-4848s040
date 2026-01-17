@@ -15,7 +15,7 @@ jobs:
       #### Modify below here to match your project ####
       files: |
         esphome-4848s040.yaml
-      esphome-version: 2025.12.5
+      esphome-version: 2025.12.7
       # combined-name: project-template
       #### Modify above here to match your project ####
 
