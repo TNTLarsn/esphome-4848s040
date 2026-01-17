@@ -189,7 +189,8 @@ lvgl:
                         align: top_right
                         text_font: nunito_18
                         text_color: color_text_dark_primary
-                        text: "2025.9.0"
+                        text: !lambda |-
+                          return id(esphome_version).state.c_str();
                     - label:  
                         id: display_version_info_label
                         x: 20
