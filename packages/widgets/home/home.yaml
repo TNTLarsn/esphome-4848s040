@@ -101,7 +101,7 @@ lvgl:
             hidden: false
             y: 60
             width: 440
-            height: 220
+            height: 240
             align: top_mid
             clickable: false
             scrollable: false
