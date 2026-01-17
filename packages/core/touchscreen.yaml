@@ -14,6 +14,9 @@ i2c:
     scl:
       number: GPIO45
       ignore_strapping_warning: true
+    # Reduced from default (400kHz) to 100kHz to improve GT911 reliability on this PCB;
+    # higher I2C speeds caused intermittent touch events / ghost touches, so we trade
+    # a small reduction in maximum touch update rate for stable, accurate input.
     frequency: 100kHz
     
 touchscreen:
